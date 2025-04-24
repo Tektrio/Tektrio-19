@@ -476,7 +476,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
-          <Card className="border border-slate-200 shadow-xl shadow-slate-200/10">
+          <Card className="border border-gray-800 bg-black text-white">
             <CardContent className="pt-10 pb-8 text-center">
               <motion.div
                 initial={{ scale: 0.8 }}
@@ -489,7 +489,7 @@ export default function Home() {
                 }}
                 className="mb-6"
               >
-                <div className="h-20 w-20 mx-auto rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 flex items-center justify-center text-white">
+                <div className="h-20 w-20 mx-auto rounded-2xl bg-blue-600 flex items-center justify-center text-white">
                   <Layers className="h-10 w-10" />
                 </div>
               </motion.div>
@@ -499,10 +499,10 @@ export default function Home() {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.4 }}
               >
-                <h2 className="text-2xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">
+                <h2 className="text-2xl font-bold mb-2 text-blue-500">
                   Nenhum Tenant Selecionado
                 </h2>
-                <p className="text-slate-600 mb-6 max-w-md mx-auto">
+                <p className="text-white/70 mb-6 max-w-md mx-auto">
                   Por favor, selecione um tenant para gerenciar seu schema e dados. 
                   Cada tenant possui seu próprio esquema isolado no banco de dados.
                 </p>
