@@ -1,4 +1,4 @@
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, Database, Shield, Server, Layout, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -6,6 +6,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
 } from "@/components/ui/command";
 import {
   Popover,
@@ -15,16 +16,38 @@ import {
 import { useTenant } from "@/hooks/use-tenant";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { Badge } from "@/components/ui/badge";
 
 export default function TenantSelector() {
   const { currentTenant, setCurrentTenant, tenants, isLoading } = useTenant();
   const [open, setOpen] = useState(false);
 
+  // Obtém um ícone baseado no nome do tenant
+  const getTenantIcon = (name: string) => {
+    const lowerName = name.toLowerCase();
+    if (lowerName.includes('dev') || lowerName.includes('development')) {
+      return <Layout className="h-4 w-4 text-blue-500" />;
+    } else if (lowerName.includes('prod') || lowerName.includes('production')) {
+      return <Server className="h-4 w-4 text-emerald-500" />;
+    } else if (lowerName.includes('test') || lowerName.includes('staging')) {
+      return <Shield className="h-4 w-4 text-amber-500" />;
+    } else {
+      return <Database className="h-4 w-4 text-purple-500" />;
+    }
+  };
+
   if (isLoading) {
     return (
-      <Button variant="outline" className="w-[220px] justify-start" disabled>
-        <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50 mr-2" />
-        Loading tenants...
+      <Button variant="outline" className="w-[250px] justify-start bg-white/50 backdrop-blur-sm border border-slate-200 shadow-sm" disabled>
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+          className="mr-2"
+        >
+          <Loader2 className="h-4 w-4 text-primary" />
+        </motion.div>
+        <span className="text-slate-500">Carregando tenants...</span>
       </Button>
     );
   }
@@ -36,36 +59,82 @@ export default function TenantSelector() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[220px] justify-between"
+          className={cn(
+            "w-[250px] justify-between border border-slate-200 shadow-sm transition-all",
+            "bg-white hover:bg-slate-50",
+            "data-[state=open]:bg-slate-50 data-[state=open]:ring-2 data-[state=open]:ring-slate-200"
+          )}
         >
-          {currentTenant ? currentTenant.name : "Select system..."}
+          <div className="flex items-center">
+            {currentTenant ? (
+              <>
+                <div className="h-6 w-6 rounded-full bg-gradient-to-br from-primary to-purple-600 mr-2 flex items-center justify-center text-white text-xs font-medium">
+                  {currentTenant.name.charAt(0)}
+                </div>
+                <span className="font-medium">{currentTenant.name}</span>
+                {currentTenant.active && (
+                  <Badge variant="outline" className="ml-2 bg-green-50 text-green-600 text-[10px] font-medium border-green-200">
+                    Ativo
+                  </Badge>
+                )}
+              </>
+            ) : (
+              <span>Selecionar sistema...</span>
+            )}
+          </div>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[220px] p-0">
-        <Command>
-          <CommandInput placeholder="Search system..." />
-          <CommandEmpty>No system found.</CommandEmpty>
-          <CommandGroup>
-            {tenants.map((tenant) => (
-              <CommandItem
-                key={tenant.id}
-                value={tenant.schemaName}
-                onSelect={() => {
-                  setCurrentTenant(tenant);
-                  setOpen(false);
-                }}
-              >
-                <Check
+      <PopoverContent className="w-[250px] p-0 border border-slate-200 shadow-lg">
+        <Command className="rounded-lg">
+          <CommandInput placeholder="Buscar sistema..." className="h-9" />
+          <CommandList>
+            <CommandEmpty>
+              <div className="py-6 text-center text-sm">
+                <div className="text-slate-500">Nenhum tenant encontrado</div>
+                <Button size="sm" variant="outline" className="mt-4">
+                  Criar novo tenant
+                </Button>
+              </div>
+            </CommandEmpty>
+            <CommandGroup className="py-1.5">
+              {tenants.map((tenant) => (
+                <CommandItem
+                  key={tenant.id}
+                  value={tenant.schemaName}
+                  onSelect={() => {
+                    setCurrentTenant(tenant);
+                    setOpen(false);
+                  }}
                   className={cn(
-                    "mr-2 h-4 w-4",
-                    currentTenant?.id === tenant.id ? "opacity-100" : "opacity-0"
+                    "py-2 px-2 my-0.5 mx-1 rounded-md cursor-pointer transition-colors",
+                    currentTenant?.id === tenant.id && "bg-slate-100"
                   )}
-                />
-                {tenant.name}
-              </CommandItem>
-            ))}
-          </CommandGroup>
+                >
+                  <div className="flex items-center w-full">
+                    <div className={cn(
+                      "h-6 w-6 rounded-full flex items-center justify-center mr-2", 
+                      currentTenant?.id === tenant.id 
+                        ? "bg-gradient-to-br from-primary to-purple-600 text-white"
+                        : "bg-slate-100 text-slate-600"
+                    )}>
+                      {tenant.name.charAt(0)}
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="font-medium text-sm">{tenant.name}</span>
+                      <span className="text-xs text-slate-500 font-mono">{tenant.schemaName}</span>
+                    </div>
+                    <Check
+                      className={cn(
+                        "ml-auto h-4 w-4 text-primary",
+                        currentTenant?.id === tenant.id ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                  </div>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
         </Command>
       </PopoverContent>
     </Popover>
