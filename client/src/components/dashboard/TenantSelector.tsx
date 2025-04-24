@@ -39,15 +39,15 @@ export default function TenantSelector() {
 
   if (isLoading) {
     return (
-      <Button variant="outline" className="w-[250px] justify-start bg-white/50 backdrop-blur-sm border border-slate-200 shadow-sm" disabled>
+      <Button variant="outline" className="w-[250px] justify-start bg-black/50 backdrop-blur-sm border border-gray-800" disabled>
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
           className="mr-2"
         >
-          <Loader2 className="h-4 w-4 text-primary" />
+          <Loader2 className="h-4 w-4 text-blue-500" />
         </motion.div>
-        <span className="text-slate-500">Carregando tenants...</span>
+        <span className="text-white/50">Carregando tenants...</span>
       </Button>
     );
   }
@@ -60,39 +60,39 @@ export default function TenantSelector() {
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "w-[250px] justify-between border border-slate-200 shadow-sm transition-all",
-            "bg-white hover:bg-slate-50",
-            "data-[state=open]:bg-slate-50 data-[state=open]:ring-2 data-[state=open]:ring-slate-200"
+            "w-[250px] justify-between border border-gray-800 transition-all",
+            "bg-black text-white hover:bg-gray-900",
+            "data-[state=open]:bg-gray-900 data-[state=open]:ring-2 data-[state=open]:ring-gray-700"
           )}
         >
           <div className="flex items-center">
             {currentTenant ? (
               <>
-                <div className="h-6 w-6 rounded-full bg-gradient-to-br from-primary to-purple-600 mr-2 flex items-center justify-center text-white text-xs font-medium">
+                <div className="h-6 w-6 rounded-full bg-blue-600 mr-2 flex items-center justify-center text-white text-xs font-medium">
                   {currentTenant.name.charAt(0)}
                 </div>
                 <span className="font-medium">{currentTenant.name}</span>
                 {currentTenant.active && (
-                  <Badge variant="outline" className="ml-2 bg-green-50 text-green-600 text-[10px] font-medium border-green-200">
+                  <Badge variant="outline" className="ml-2 bg-black text-blue-500 text-[10px] font-medium border-blue-800">
                     Ativo
                   </Badge>
                 )}
               </>
             ) : (
-              <span>Selecionar sistema...</span>
+              <span className="text-white/70">Selecionar sistema...</span>
             )}
           </div>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[250px] p-0 border border-slate-200 shadow-lg">
-        <Command className="rounded-lg">
-          <CommandInput placeholder="Buscar sistema..." className="h-9" />
-          <CommandList>
+      <PopoverContent className="w-[250px] p-0 border border-gray-800 bg-black shadow-lg">
+        <Command className="rounded-lg bg-black">
+          <CommandInput placeholder="Buscar sistema..." className="h-9 bg-black text-white border-b border-gray-800" />
+          <CommandList className="bg-black text-white">
             <CommandEmpty>
               <div className="py-6 text-center text-sm">
-                <div className="text-slate-500">Nenhum tenant encontrado</div>
-                <Button size="sm" variant="outline" className="mt-4">
+                <div className="text-white/50">Nenhum tenant encontrado</div>
+                <Button size="sm" variant="outline" className="mt-4 text-white border-gray-700">
                   Criar novo tenant
                 </Button>
               </div>
@@ -107,26 +107,26 @@ export default function TenantSelector() {
                     setOpen(false);
                   }}
                   className={cn(
-                    "py-2 px-2 my-0.5 mx-1 rounded-md cursor-pointer transition-colors",
-                    currentTenant?.id === tenant.id && "bg-slate-100"
+                    "py-2 px-2 my-0.5 mx-1 rounded-md cursor-pointer transition-colors text-white",
+                    currentTenant?.id === tenant.id && "bg-gray-900"
                   )}
                 >
                   <div className="flex items-center w-full">
                     <div className={cn(
                       "h-6 w-6 rounded-full flex items-center justify-center mr-2", 
                       currentTenant?.id === tenant.id 
-                        ? "bg-gradient-to-br from-primary to-purple-600 text-white"
-                        : "bg-slate-100 text-slate-600"
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-800 text-white"
                     )}>
                       {tenant.name.charAt(0)}
                     </div>
                     <div className="flex flex-col">
-                      <span className="font-medium text-sm">{tenant.name}</span>
-                      <span className="text-xs text-slate-500 font-mono">{tenant.schemaName}</span>
+                      <span className="font-medium text-sm text-white">{tenant.name}</span>
+                      <span className="text-xs text-white/50 font-mono">{tenant.schemaName}</span>
                     </div>
                     <Check
                       className={cn(
-                        "ml-auto h-4 w-4 text-primary",
+                        "ml-auto h-4 w-4 text-blue-500",
                         currentTenant?.id === tenant.id ? "opacity-100" : "opacity-0"
                       )}
                     />

@@ -45,10 +45,10 @@ export default function Home() {
     <div className="max-w-7xl mx-auto px-4 py-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">
+          <h1 className="text-3xl font-bold text-blue-500">
             TEKTRIO Dashboard
           </h1>
-          <p className="text-slate-600 mt-1">
+          <p className="text-white/70 mt-1">
             Sistema multi-tenant com isolamento por schema
           </p>
         </div>
@@ -62,18 +62,18 @@ export default function Home() {
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="flex flex-col items-center justify-center h-64 rounded-xl bg-white border border-slate-200 shadow-xl shadow-slate-200/20"
+          className="flex flex-col items-center justify-center h-64 rounded-xl bg-black border border-gray-800"
         >
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
           >
-            <Loader2 className="h-10 w-10 text-primary" />
+            <Loader2 className="h-10 w-10 text-blue-500" />
           </motion.div>
-          <span className="mt-4 text-lg font-medium text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">
+          <span className="mt-4 text-lg font-medium text-blue-500">
             Carregando dados do tenant...
           </span>
-          <p className="text-slate-500 mt-2">Estabelecendo conexão com o banco de dados</p>
+          <p className="text-white/50 mt-2">Estabelecendo conexão com o banco de dados</p>
         </motion.div>
       ) : currentTenant ? (
         <div className="space-y-8">
