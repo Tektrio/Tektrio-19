@@ -25,20 +25,20 @@ function NavItem({ href, icon, children, active }: NavItemProps) {
       <Link href={href}>
         <div
           className={cn(
-            "flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200",
+            "flex items-center py-2.5 pl-3 pr-4 my-0.5 text-sm transition-all duration-200",
             active 
-              ? "bg-gradient-to-r from-blue-500/20 to-blue-400/5 text-blue-400 shadow-sm" 
-              : "text-slate-400 hover:text-slate-300 hover:bg-slate-700/40"
+              ? "text-blue-400 bg-blue-500/10" 
+              : "text-slate-400 hover:text-blue-300"
           )}
         >
-          <span className={cn(
-            "mr-3 transition-transform duration-200 group-hover:scale-110",
-            active ? "text-blue-300" : "text-slate-500 group-hover:text-blue-400"
-          )}>{icon}</span>
-          <span className="font-medium">{children}</span>
           {active && (
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4/5 bg-blue-500 rounded-r-md" />
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500" />
           )}
+          <span className={cn(
+            "mr-3 transition-all duration-200",
+            active ? "text-blue-400" : "text-slate-500 group-hover:text-blue-400"
+          )}>{icon}</span>
+          <span className={active ? "font-medium" : ""}>{children}</span>
         </div>
       </Link>
     </div>
@@ -50,22 +50,20 @@ export default function Sidebar() {
   const { currentTenant } = useTenant();
   
   return (
-    <div className="w-64 h-full bg-gradient-to-b from-slate-900 to-slate-800 border-r border-slate-700/50 flex flex-col shadow-lg shadow-blue-900/30 tech-grid-bg">
-      <div className="p-5 border-b border-slate-700/50 bg-gradient-to-r from-blue-500/10 to-transparent backdrop-blur-sm">
+    <div className="w-64 h-full bg-[#111827] flex flex-col shadow-lg">
+      <div className="p-5 border-b border-slate-700/30">
         <div className="flex items-center space-x-3">
-          <div className="relative h-10 w-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center font-bold shadow-lg shadow-blue-600/30">
-            <span className="z-10 relative">TK</span>
-            {/* Inner glow effect */}
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-blue-400 to-purple-500 blur opacity-70"></div>
+          <div className="h-10 w-10 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold shadow-md">
+            <span>TK</span>
           </div>
           <div>
-            <h2 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 text-lg">TEKTRIO</h2>
-            <p className="text-xs text-slate-400 mt-0.5">Multi-tenant Platform</p>
+            <h2 className="font-medium text-blue-400 text-lg">TEKTRIO</h2>
+            <p className="text-xs text-slate-500 mt-0.5 uppercase tracking-wide">Multi-tenant Platform</p>
           </div>
         </div>
       </div>
       
-      <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+      <nav className="flex-1 pt-4 overflow-y-auto">
         <NavItem href="/" icon={<Home className="h-5 w-5" />} active={location === "/"}>
           Dashboard
         </NavItem>
@@ -86,11 +84,9 @@ export default function Sidebar() {
           Banco de Dados
         </NavItem>
         
-        <div className="pt-5 pb-3 px-3">
-          <div className="text-xs font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 uppercase tracking-wider flex items-center">
-            <div className="h-px flex-grow bg-gradient-to-r from-blue-500/20 to-transparent mr-2"></div>
+        <div className="py-3 px-5">
+          <div className="text-xs font-medium text-blue-500/70 uppercase tracking-wider">
             System Management
-            <div className="h-px flex-grow bg-gradient-to-r from-transparent to-purple-500/20 ml-2"></div>
           </div>
         </div>
         
@@ -118,11 +114,9 @@ export default function Sidebar() {
           Desenvolvimento
         </NavItem>
         
-        <div className="pt-5 pb-3 px-3">
-          <div className="text-xs font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 uppercase tracking-wider flex items-center">
-            <div className="h-px flex-grow bg-gradient-to-r from-blue-500/20 to-transparent mr-2"></div>
+        <div className="py-3 px-5">
+          <div className="text-xs font-medium text-blue-500/70 uppercase tracking-wider">
             Configuração
-            <div className="h-px flex-grow bg-gradient-to-r from-transparent to-purple-500/20 ml-2"></div>
           </div>
         </div>
         
@@ -133,20 +127,20 @@ export default function Sidebar() {
         >
           Configurações
         </NavItem>
+        
+        {/* Espaço em branco para separar o último item do rodapé */}
+        <div className="py-8"></div>
       </nav>
       
       {currentTenant && (
-        <div className="p-4 border-t border-slate-700/50 backdrop-blur-sm bg-gradient-to-r from-blue-600/10 via-purple-600/5 to-transparent">
+        <div className="p-4 border-t border-slate-700/30 mt-auto">
           <div className="flex items-center space-x-3">
-            <div className="relative h-10 w-10 rounded-xl flex items-center justify-center text-white font-medium">
-              {/* Background with glow */}
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500 blur opacity-70"></div>
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500"></div>
-              <span className="z-10 relative">{currentTenant.name.charAt(0)}</span>
+            <div className="h-8 w-8 rounded-md bg-emerald-600 flex items-center justify-center text-white font-medium shadow-sm">
+              <span>{currentTenant.name.charAt(0)}</span>
             </div>
             <div>
-              <div className="text-sm font-medium text-slate-200">{currentTenant.name}</div>
-              <div className="text-xs text-slate-400 font-mono">{currentTenant.schemaName}</div>
+              <div className="text-sm font-medium text-slate-300">{currentTenant.name}</div>
+              <div className="text-xs text-slate-500">{currentTenant.schemaName}</div>
             </div>
           </div>
         </div>
