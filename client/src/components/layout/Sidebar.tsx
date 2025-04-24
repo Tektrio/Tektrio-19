@@ -25,19 +25,19 @@ function NavItem({ href, icon, children, active }: NavItemProps) {
       <Link href={href}>
         <div
           className={cn(
-            "flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-102",
+            "flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200",
             active 
-              ? "bg-gradient-to-r from-primary/20 to-primary/10 text-primary shadow-sm" 
-              : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+              ? "bg-gradient-to-r from-blue-500/20 to-blue-400/5 text-blue-400 shadow-sm" 
+              : "text-slate-400 hover:text-slate-300 hover:bg-slate-700/40"
           )}
         >
           <span className={cn(
             "mr-3 transition-transform duration-200 group-hover:scale-110",
-            active ? "text-primary" : "text-slate-500 group-hover:text-primary/80"
+            active ? "text-blue-300" : "text-slate-500 group-hover:text-blue-400"
           )}>{icon}</span>
           <span className="font-medium">{children}</span>
           {active && (
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4/5 bg-primary rounded-r-md" />
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4/5 bg-blue-500 rounded-r-md" />
           )}
         </div>
       </Link>
