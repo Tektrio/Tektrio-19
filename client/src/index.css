@@ -57,58 +57,138 @@
 }
 
 @layer components {
+  /* Cyberpunk Theme with Neon Effects */
   .tech-gradient-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 font-bold;
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-600 font-bold;
   }
   
   .tech-card {
-    @apply relative overflow-hidden bg-gradient-to-b from-slate-800 to-slate-900 border border-slate-700/50 rounded-xl shadow-lg;
+    @apply relative overflow-hidden bg-black border border-cyan-500/20 rounded-xl shadow-lg;
   }
   
   .tech-card::before {
     content: '';
-    @apply absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-600/10 opacity-30 pointer-events-none;
+    @apply absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-fuchsia-600/10 opacity-30 pointer-events-none;
   }
   
   .tech-card:hover::before {
     @apply opacity-40 transition-opacity duration-300;
   }
   
+  /* Neon glow effects */
   .tech-glow {
     @apply relative;
   }
   
   .tech-glow::after {
     content: '';
-    @apply absolute -inset-[1px] bg-gradient-to-r from-blue-500 to-purple-600 rounded-[inherit] z-[-1] opacity-0 transition-opacity duration-300 blur-sm;
+    @apply absolute -inset-[1px] bg-gradient-to-r from-cyan-500 to-fuchsia-600 rounded-[inherit] z-[-1] opacity-0 transition-opacity duration-300 blur-sm;
   }
   
   .tech-glow:hover::after {
     @apply opacity-70;
   }
   
+  /* Full Black Layout with Neon Grid */
   .tech-layout {
-    @apply bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 min-h-screen text-slate-200;
+    @apply bg-black min-h-screen text-slate-200;
   }
   
   .tech-grid-bg {
+    background-color: #000000;
     background-image: 
-      linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
+      linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    position: relative;
+  }
+  
+  .tech-grid-bg::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      rgba(0, 230, 255, 0.02) 2px,
+      transparent 4px
+    );
+    z-index: 1;
+    pointer-events: none;
   }
   
   .tech-headline {
     @apply text-4xl font-extrabold tracking-tight tech-gradient-text;
   }
   
+  /* Neon text effects */
+  .neon-blue {
+    color: #00e5ff;
+    text-shadow: 
+      0 0 5px rgba(0, 229, 255, 0.7),
+      0 0 10px rgba(0, 229, 255, 0.5),
+      0 0 15px rgba(0, 229, 255, 0.3);
+  }
+  
+  .neon-purple {
+    color: #bf00ff;
+    text-shadow: 
+      0 0 5px rgba(191, 0, 255, 0.7),
+      0 0 10px rgba(191, 0, 255, 0.5),
+      0 0 15px rgba(191, 0, 255, 0.3);
+  }
+  
+  .neon-pink {
+    color: #ff00aa;
+    text-shadow: 
+      0 0 5px rgba(255, 0, 170, 0.7),
+      0 0 10px rgba(255, 0, 170, 0.5),
+      0 0 15px rgba(255, 0, 170, 0.3);
+  }
+  
+  .neon-green {
+    color: #00ff66;
+    text-shadow: 
+      0 0 5px rgba(0, 255, 102, 0.7),
+      0 0 10px rgba(0, 255, 102, 0.5),
+      0 0 15px rgba(0, 255, 102, 0.3);
+  }
+  
+  /* Cyberpunk animated border */
+  .cyber-border {
+    position: relative;
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    overflow: hidden;
+  }
+  
+  .cyber-border::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.4), transparent);
+    background-size: 200% 100%;
+    animation: cyber-border-flow 3s linear infinite;
+  }
+  
+  @keyframes cyber-border-flow {
+    0% { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+  }
+  
+  /* Tech Links */
   .tech-link {
-    @apply relative inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors duration-200;
+    @apply relative inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors duration-200;
   }
   
   .tech-link::after {
     content: '';
-    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300;
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-400 transition-all duration-300;
   }
   
   .tech-link:hover::after {

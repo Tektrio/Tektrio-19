@@ -53,17 +53,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   
   return (
     <TenantProvider>
-      <div className={cn(
-        "min-h-screen flex flex-col tech-grid-bg",
-        darkMode ? "tech-layout" : "bg-slate-50"
-      )}>
+      <div className="min-h-screen flex flex-col bg-black tech-grid-bg">
         {/* Header */}
-        <header className={cn(
-          "sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300",
-          darkMode 
-            ? "bg-slate-900/80 border-slate-700/50 text-slate-100" 
-            : "bg-white/90 border-slate-200"
-        )}>
+        <header className="sticky top-0 z-50 backdrop-blur-md border-b border-cyan-900/30 transition-all duration-300 bg-black/80 text-slate-100 relative overflow-hidden">
+          {/* Linha de neon animada */}
+          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/70 to-transparent"></div>
+          
           <div className="container max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <div className="flex items-center space-x-3">
               {isMobile && (
@@ -71,10 +66,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   variant="ghost"
                   size="icon"
                   onClick={() => setSidebarOpen(!sidebarOpen)}
-                  className={cn(
-                    "md:hidden tech-glow",
-                    darkMode ? "text-slate-300" : "text-slate-700"
-                  )}
+                  className="md:hidden tech-glow text-cyan-400"
                 >
                   <Menu className="h-5 w-5" />
                 </Button>
@@ -85,14 +77,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 transition={{ duration: 0.5, type: "spring" }}
                 className="flex items-center space-x-3"
               >
-                <div className="relative h-10 w-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center font-bold shadow-md">
-                  <span className="z-10">TK</span>
+                <div className="relative h-10 w-10 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-700 text-white flex items-center justify-center font-bold shadow-md">
+                  <span className="z-10 text-lg">TK</span>
                   {/* Glow effect */}
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-blue-400 to-purple-500 blur-md opacity-70"></div>
+                  <div className="absolute inset-0 rounded-lg bg-cyan-500/20 blur-sm"></div>
                 </div>
                 <div>
-                  <h1 className="text-xl font-extrabold tech-gradient-text tracking-tight">TEKTRIO</h1>
-                  <div className="text-[10px] font-medium text-slate-500 uppercase tracking-wider">
+                  <h1 className="text-xl font-bold neon-blue tracking-tight">TEKTRIO</h1>
+                  <div className="text-[10px] font-medium text-cyan-700 uppercase tracking-wider">
                     Multi-tenant Platform
                   </div>
                 </div>
@@ -134,12 +126,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <div className="flex items-center space-x-3">
               {/* Search button */}
               <Button 
-                variant={darkMode ? "ghost" : "ghost"}
+                variant="ghost"
                 size="icon" 
-                className={cn(
-                  "rounded-full tech-glow",
-                  darkMode ? "text-slate-300 hover:text-white hover:bg-slate-800" : ""
-                )}
+                className="rounded-full tech-glow text-cyan-400 hover:text-cyan-300"
                 onClick={() => setSearchOpen(!searchOpen)}
               >
                 <Search className="h-5 w-5" />
@@ -149,14 +138,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <div className="hidden md:flex items-center space-x-2">
                 <motion.div 
                   whileHover={{ y: -2 }}
-                  className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md shadow-blue-500/20"
+                  className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-black border border-cyan-500/40 text-cyan-400 shadow-md shadow-cyan-500/20"
                 >
                   <Github className="h-3 w-3 mr-1" />
                   Replit
                 </motion.div>
                 <motion.div 
                   whileHover={{ y: -2 }}
-                  className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-md shadow-green-500/20"
+                  className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-black border border-fuchsia-500/40 text-fuchsia-400 shadow-md shadow-fuchsia-500/20"
                 >
                   <DbIcon className="h-3 w-3 mr-1" />
                   NeonDB
@@ -165,12 +154,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               
               {/* Dark mode toggle */}
               <Button 
-                variant={darkMode ? "ghost" : "ghost"}
+                variant="ghost"
                 size="icon" 
-                className={cn(
-                  "rounded-full relative tech-glow transition-all duration-300",
-                  darkMode ? "text-yellow-300 hover:text-yellow-200" : "text-slate-700"
-                )}
+                className="rounded-full relative tech-glow transition-all duration-300 text-yellow-300 hover:text-yellow-200"
                 onClick={() => setDarkMode(!darkMode)}
               >
                 <motion.div
@@ -190,10 +176,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   }}
                   transition={{ duration: 0.5, times: [0, 0.5, 1] }}
                   key={darkMode ? "dark" : "light"}
-                  className={cn(
-                    "absolute inset-0 rounded-full",
-                    darkMode ? "bg-yellow-300" : "bg-slate-700"
-                  )}
+                  className="absolute inset-0 rounded-full bg-yellow-300"
                 />
               </Button>
               
@@ -201,121 +184,82 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button 
-                    variant={darkMode ? "ghost" : "ghost"}
+                    variant="ghost"
                     size="icon" 
-                    className={cn(
-                      "rounded-full relative tech-glow",
-                      darkMode ? "text-slate-300 hover:text-white hover:bg-slate-800" : ""
-                    )}
+                    className="rounded-full relative tech-glow text-red-400 hover:text-red-300"
                   >
                     <motion.div
                       whileTap={{ scale: 0.9 }}
                       className="relative"
                     >
                       <Bell className="h-5 w-5" />
-                      <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 bg-red-500 rounded-full border-2 border-white dark:border-slate-800" />
+                      <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 bg-red-500 rounded-full border-2 border-black" />
                     </motion.div>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent 
                   align="end" 
-                  className={cn(
-                    "w-80 p-0 overflow-hidden",
-                    darkMode ? "bg-slate-800 border-slate-700 text-slate-100" : "",
-                    "shadow-lg shadow-blue-500/5"
-                  )}
+                  className="w-80 p-0 overflow-hidden bg-black border border-cyan-900/40 text-slate-100 shadow-lg shadow-cyan-500/10"
                 >
-                  <div className={cn(
-                    "p-4 bg-gradient-to-r",
-                    darkMode 
-                      ? "from-slate-700 to-slate-800 border-b border-slate-700" 
-                      : "from-slate-50 to-white border-b border-slate-100"
-                  )}>
-                    <h3 className="font-semibold text-lg tech-gradient-text">Notificações</h3>
-                    <p className={cn(
-                      "text-sm",
-                      darkMode ? "text-slate-400" : "text-slate-500"
-                    )}>
+                  <div className="p-4 bg-gradient-to-r from-black to-cyan-950/20 border-b border-cyan-900/30 relative overflow-hidden">
+                    {/* Linha de neon animada */}
+                    <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/70 to-transparent"></div>
+                    
+                    <h3 className="font-semibold text-lg neon-blue">Notificações</h3>
+                    <p className="text-sm text-cyan-600">
                       Você tem 2 novas notificações
                     </p>
                   </div>
                   
-                  <div className={cn(
-                    darkMode ? "bg-slate-800" : "bg-white"
-                  )}>
-                    <DropdownMenuItem className={cn(
-                      "cursor-pointer p-4 focus:bg-opacity-40",
-                      darkMode 
-                        ? "border-t border-slate-700 hover:bg-slate-700 focus:bg-slate-700" 
-                        : "border-t border-slate-100 hover:bg-slate-50 focus:bg-slate-50"
-                    )}>
+                  <div className="bg-black">
+                    <DropdownMenuItem className="cursor-pointer p-4 focus:bg-opacity-40 border-t border-cyan-900/20 hover:bg-cyan-950/30 focus:bg-cyan-950/30">
                       <div className="flex space-x-3 items-start w-full">
-                        <div className={cn(
-                          "h-8 w-8 rounded-full flex items-center justify-center shrink-0 mt-0.5",
-                          "bg-gradient-to-br from-blue-500 to-purple-500 text-white"
-                        )}>
-                          <Layers className="h-4 w-4" />
+                        <div className="relative h-8 w-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 overflow-hidden">
+                          {/* Background com efeito neon */}
+                          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500 to-blue-700"></div>
+                          <div className="absolute inset-0 rounded-full bg-cyan-500/20 blur-sm"></div>
+                          <Layers className="h-4 w-4 text-white relative z-10" />
                         </div>
                         <div>
-                          <div className="font-medium">Novo tenant criado</div>
-                          <div className={cn(
-                            "text-sm",
-                            darkMode ? "text-slate-400" : "text-slate-500"
-                          )}>
+                          <div className="font-medium text-cyan-300">Novo tenant criado</div>
+                          <div className="text-sm text-slate-400">
                             Tenant "Development" foi criado com sucesso
                           </div>
-                          <div className={cn(
-                            "text-xs mt-1",
-                            darkMode ? "text-slate-500" : "text-slate-400"
-                          )}>
+                          <div className="text-xs mt-1 text-cyan-700">
                             há 10 minutos
                           </div>
                         </div>
                       </div>
                     </DropdownMenuItem>
                     
-                    <DropdownMenuItem className={cn(
-                      "cursor-pointer p-4 focus:bg-opacity-40",
-                      darkMode 
-                        ? "border-t border-slate-700 hover:bg-slate-700 focus:bg-slate-700" 
-                        : "border-t border-slate-100 hover:bg-slate-50 focus:bg-slate-50"
-                    )}>
+                    <DropdownMenuItem className="cursor-pointer p-4 focus:bg-opacity-40 border-t border-cyan-900/20 hover:bg-cyan-950/30 focus:bg-cyan-950/30">
                       <div className="flex space-x-3 items-start w-full">
-                        <div className={cn(
-                          "h-8 w-8 rounded-full flex items-center justify-center shrink-0 mt-0.5",
-                          "bg-gradient-to-br from-emerald-500 to-green-500 text-white"
-                        )}>
-                          <DbIcon className="h-4 w-4" />
+                        <div className="relative h-8 w-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 overflow-hidden">
+                          {/* Background com efeito neon */}
+                          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-700"></div>
+                          <div className="absolute inset-0 rounded-full bg-fuchsia-500/20 blur-sm"></div>
+                          <DbIcon className="h-4 w-4 text-white relative z-10" />
                         </div>
                         <div>
-                          <div className="font-medium">Atualização do sistema</div>
-                          <div className={cn(
-                            "text-sm",
-                            darkMode ? "text-slate-400" : "text-slate-500"
-                          )}>
+                          <div className="font-medium text-fuchsia-300">Atualização do sistema</div>
+                          <div className="text-sm text-slate-400">
                             Nova versão do TEKTRIO disponível
                           </div>
-                          <div className={cn(
-                            "text-xs mt-1",
-                            darkMode ? "text-slate-500" : "text-slate-400"
-                          )}>
+                          <div className="text-xs mt-1 text-fuchsia-700">
                             há 2 horas
                           </div>
                         </div>
                       </div>
                     </DropdownMenuItem>
                     
-                    <div className={cn(
-                      "p-2 text-center",
-                      darkMode ? "border-t border-slate-700" : "border-t border-slate-100"
-                    )}>
+                    <div className="p-2 text-center border-t border-cyan-900/30 relative overflow-hidden">
+                      {/* Linha de neon animada */}
+                      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/70 to-transparent"></div>
+                      
                       <Button 
                         variant="ghost" 
                         size="sm" 
-                        className={cn(
-                          "text-xs w-full justify-center tech-gradient-text",
-                          darkMode ? "hover:bg-slate-700" : ""
-                        )}
+                        className="text-xs w-full justify-center neon-blue hover:bg-cyan-950/30"
                       >
                         Ver todas notificações
                       </Button>
@@ -328,10 +272,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <motion.div 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="relative h-9 w-9 rounded-full flex items-center justify-center text-white cursor-pointer shadow-lg shadow-blue-600/20"
+                className="relative h-9 w-9 rounded-full flex items-center justify-center text-white cursor-pointer shadow-lg shadow-fuchsia-600/20"
               >
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 blur-sm opacity-80"></div>
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-600"></div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-700 blur-sm opacity-80"></div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-700"></div>
                 <span className="z-10 text-sm font-medium">U</span>
               </motion.div>
             </div>
