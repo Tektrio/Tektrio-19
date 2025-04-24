@@ -50,15 +50,17 @@ export default function Sidebar() {
   const { currentTenant } = useTenant();
   
   return (
-    <div className="w-64 h-full bg-gradient-to-b from-slate-50 to-white border-r border-slate-200 flex flex-col shadow-lg shadow-slate-200/50">
-      <div className="p-5 border-b border-slate-200 bg-gradient-to-r from-primary/5 to-transparent">
+    <div className="w-64 h-full bg-gradient-to-b from-slate-900 to-slate-800 border-r border-slate-700/50 flex flex-col shadow-lg shadow-blue-900/30 tech-grid-bg">
+      <div className="p-5 border-b border-slate-700/50 bg-gradient-to-r from-blue-500/10 to-transparent backdrop-blur-sm">
         <div className="flex items-center space-x-3">
-          <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary to-purple-600 text-white flex items-center justify-center font-bold shadow-md shadow-primary/20">
-            TK
+          <div className="relative h-10 w-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center font-bold shadow-lg shadow-blue-600/30">
+            <span className="z-10 relative">TK</span>
+            {/* Inner glow effect */}
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-blue-400 to-purple-500 blur opacity-70"></div>
           </div>
           <div>
-            <h2 className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">TEKTRIO Project</h2>
-            <p className="text-xs text-slate-500 mt-0.5">Monorepo + Multi-tenant</p>
+            <h2 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 text-lg">TEKTRIO</h2>
+            <p className="text-xs text-slate-400 mt-0.5">Multi-tenant Platform</p>
           </div>
         </div>
       </div>
@@ -73,7 +75,7 @@ export default function Sidebar() {
           icon={<Users className="h-5 w-5" />} 
           active={location.startsWith("/users")}
         >
-          Users
+          Usuários
         </NavItem>
         
         <NavItem 
@@ -81,12 +83,14 @@ export default function Sidebar() {
           icon={<Database className="h-5 w-5" />} 
           active={location.startsWith("/database")}
         >
-          Database
+          Banco de Dados
         </NavItem>
         
-        <div className="pt-5 pb-2">
-          <div className="px-3 text-xs font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600 uppercase tracking-wider">
+        <div className="pt-5 pb-3 px-3">
+          <div className="text-xs font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 uppercase tracking-wider flex items-center">
+            <div className="h-px flex-grow bg-gradient-to-r from-blue-500/20 to-transparent mr-2"></div>
             System Management
+            <div className="h-px flex-grow bg-gradient-to-r from-transparent to-purple-500/20 ml-2"></div>
           </div>
         </div>
         
@@ -103,7 +107,7 @@ export default function Sidebar() {
           icon={<Server className="h-5 w-5" />} 
           active={location.startsWith("/servers")}
         >
-          Servers
+          Servidores
         </NavItem>
         
         <NavItem 
@@ -111,12 +115,14 @@ export default function Sidebar() {
           icon={<Code className="h-5 w-5" />} 
           active={location.startsWith("/developer")}
         >
-          Developer
+          Desenvolvimento
         </NavItem>
         
-        <div className="pt-5 pb-2">
-          <div className="px-3 text-xs font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600 uppercase tracking-wider">
-            Configuration
+        <div className="pt-5 pb-3 px-3">
+          <div className="text-xs font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 uppercase tracking-wider flex items-center">
+            <div className="h-px flex-grow bg-gradient-to-r from-blue-500/20 to-transparent mr-2"></div>
+            Configuração
+            <div className="h-px flex-grow bg-gradient-to-r from-transparent to-purple-500/20 ml-2"></div>
           </div>
         </div>
         
@@ -125,19 +131,22 @@ export default function Sidebar() {
           icon={<Settings className="h-5 w-5" />} 
           active={location.startsWith("/settings")}
         >
-          Settings
+          Configurações
         </NavItem>
       </nav>
       
       {currentTenant && (
-        <div className="p-4 border-t border-slate-200 bg-gradient-to-r from-primary/5 to-transparent">
+        <div className="p-4 border-t border-slate-700/50 backdrop-blur-sm bg-gradient-to-r from-blue-600/10 via-purple-600/5 to-transparent">
           <div className="flex items-center space-x-3">
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center text-white font-medium shadow-md shadow-green-600/20">
-              {currentTenant.name.charAt(0)}
+            <div className="relative h-10 w-10 rounded-xl flex items-center justify-center text-white font-medium">
+              {/* Background with glow */}
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500 blur opacity-70"></div>
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500"></div>
+              <span className="z-10 relative">{currentTenant.name.charAt(0)}</span>
             </div>
             <div>
-              <div className="text-sm font-medium text-slate-700">{currentTenant.name}</div>
-              <div className="text-xs text-slate-500">{currentTenant.schemaName}</div>
+              <div className="text-sm font-medium text-slate-200">{currentTenant.name}</div>
+              <div className="text-xs text-slate-400 font-mono">{currentTenant.schemaName}</div>
             </div>
           </div>
         </div>
