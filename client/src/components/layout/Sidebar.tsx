@@ -27,18 +27,18 @@ function NavItem({ href, icon, children, active }: NavItemProps) {
           className={cn(
             "flex items-center py-2.5 pl-3 pr-4 my-0.5 text-sm transition-all duration-300",
             active 
-              ? "neon-blue" 
-              : "text-slate-400 hover:text-cyan-300"
+              ? "text-white bg-gray-900/60" 
+              : "text-gray-400 hover:text-white"
           )}
         >
           {active && (
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-cyan-500" />
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500" />
           )}
           <span className={cn(
             "mr-3 transition-all duration-300",
             active 
-              ? "text-cyan-400" 
-              : "text-slate-500 group-hover:text-cyan-400"
+              ? "text-white" 
+              : "text-gray-500 group-hover:text-white"
           )}>{icon}</span>
           <span className={active ? "font-medium" : ""}>{children}</span>
         </div>
@@ -53,19 +53,16 @@ export default function Sidebar() {
   
   return (
     <div className="w-64 h-full bg-black flex flex-col shadow-lg tech-grid-bg">
-      <div className="p-5 border-b border-cyan-900/30 relative overflow-hidden">
-        <div className="flex items-center space-x-3 relative z-10">
-          <div className="relative h-10 w-10 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-700 text-white flex items-center justify-center font-bold shadow-md">
+      <div className="p-5 border-b border-gray-800 relative">
+        <div className="flex items-center space-x-3">
+          <div className="h-10 w-10 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold shadow-md">
             <span className="text-lg">TK</span>
-            <div className="absolute inset-0 rounded-lg bg-cyan-500/20 blur-sm"></div>
           </div>
           <div>
-            <h2 className="font-bold neon-blue text-lg">TEKTRIO</h2>
-            <p className="text-xs text-cyan-700 mt-0.5 uppercase tracking-wide">Multi-tenant Platform</p>
+            <h2 className="font-bold text-white text-lg">TEKTRIO</h2>
+            <p className="text-xs text-gray-500 mt-0.5 uppercase tracking-wide">Multi-tenant Platform</p>
           </div>
         </div>
-        {/* Linha de neon animada */}
-        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/70 to-transparent"></div>
       </div>
       
       <nav className="flex-1 pt-4 overflow-y-auto">
@@ -90,7 +87,7 @@ export default function Sidebar() {
         </NavItem>
         
         <div className="py-3 px-5">
-          <div className="text-xs font-medium neon-purple uppercase tracking-wider">
+          <div className="text-xs font-medium text-blue-400 uppercase tracking-wider">
             System Management
           </div>
         </div>
@@ -120,7 +117,7 @@ export default function Sidebar() {
         </NavItem>
         
         <div className="py-3 px-5">
-          <div className="text-xs font-medium neon-green uppercase tracking-wider">
+          <div className="text-xs font-medium text-blue-400 uppercase tracking-wider">
             Configuração
           </div>
         </div>
@@ -138,20 +135,14 @@ export default function Sidebar() {
       </nav>
       
       {currentTenant && (
-        <div className="p-4 border-t border-cyan-900/30 mt-auto relative overflow-hidden">
-          {/* Linha de neon animada */}
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/70 to-transparent"></div>
-          
-          <div className="flex items-center space-x-3 relative z-10">
-            <div className="relative h-8 w-8 rounded-md flex items-center justify-center text-white font-medium">
-              {/* Background com efeito neon */}
-              <div className="absolute inset-0 rounded-md bg-gradient-to-br from-cyan-500 to-blue-700"></div>
-              <div className="absolute inset-0 rounded-md bg-cyan-500/20 blur-sm"></div>
-              <span className="z-10 relative">{currentTenant.name.charAt(0)}</span>
+        <div className="p-4 border-t border-gray-800 mt-auto">
+          <div className="flex items-center space-x-3">
+            <div className="h-8 w-8 rounded-md bg-blue-600 flex items-center justify-center text-white font-medium">
+              <span>{currentTenant.name.charAt(0)}</span>
             </div>
             <div>
-              <div className="text-sm font-medium text-cyan-300">{currentTenant.name}</div>
-              <div className="text-xs text-cyan-700 font-mono">{currentTenant.schemaName}</div>
+              <div className="text-sm font-medium text-white">{currentTenant.name}</div>
+              <div className="text-xs text-gray-500 font-mono">{currentTenant.schemaName}</div>
             </div>
           </div>
         </div>
